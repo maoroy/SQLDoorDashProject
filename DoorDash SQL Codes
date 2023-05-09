@@ -1,0 +1,759 @@
+1. CREATE TABLE customer (
+  CustomerID int(11) NOT NULL,
+  CustomerName varchar(30) DEFAULT NULL,
+  CustomerStreet varchar(30) DEFAULT NULL,
+  CustomerCity varchar(30) DEFAULT NULL,
+  CustomerState varchar(30) DEFAULT NULL,
+  CustomerZip int(5) DEFAULT NULL,
+  PhoneNumber int(20) DEFAULT NULL,
+  TimeDelivered date DEFAULT NULL,
+  CustomerOrderID int(11) DEFAULT NULL,
+  OrderReceived varchar(30) DEFAULT NULL,
+  OrderID int(11) DEFAULT NULL,
+  CONSTRAINT customer_pk PRIMARY KEY (CustomerID)
+)
+  ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO customer ( CustomerID, CustomerName, CustomerStreet, CustomerCity,  CustomerState,  CustomerZip,  PhoneNumber, TimeDelivered,  CustomerOrderID,  OrderReceived, OrderID)
+VALUES
+(1, 'John Doe', '200 Maple', 'SLC', 'UT', 84102, 45227763, '2009-11-01', 01, 'YES', 1),
+(2, 'Bill Doll', '300 West', 'NYC', 'NY', '11424', 45767762,'2022-03-02', '02', 'YES', 2),
+(3, 'Josh Turburn', '250 North', 'MIA', 'FL', '47884', 45767733,'2022-03-12', '03', 'NO', 3),
+(4, 'Mary Lee', '200 South', 'SLC', 'UT', '84102', 45762763,'2022-03-15', '04', 'YES', 4),
+(5, 'Jane Smith', '120 University', 'LA', 'CA', '90815', 45723363, '2022-02-04', '05', 'YES', 5),
+(6, 'Luis Smith', '200 Maple', 'HOU', 'TX', '55621', 45127763,'2022-02-10', '06', 'NO', 6),
+(7, 'Ben Brown', '300 West', 'CHI', 'IL', '49091', 78762763,'2022-02-04', '07', 'YES', 7),
+(8, 'Carl Smith', '250 North', 'SD','CA', '90722', 45768763,'2022-02-11', '08', 'YES', 8),
+(9, 'John Doll', '200 South', 'SF', 'CA', '80676', 45127763, '2022-01-11', ' 09', 'YES', 9),
+(10, 'Jennet Chris', '120 University', 'SLC', 'UT', '84102', 42227763, '2022-07-05', '010', 'YES', 10);
+
+
+
+6. CREATE TABLE  doordash_employees(
+  EmployeeID int(11) NOT NULL,
+  EmployeeName varchar(30) DEFAULT NULL,
+  EmployeeAddress varchar(30) DEFAULT NULL,
+  WorkerType varchar(30) DEFAULT NULL,
+  OfficeID int(11) NOT NULL,
+  CONSTRAINT doordash_employees_pk PRIMARY KEY (EmployeeID),
+  CONSTRAINT doordash_employees_fk FOREIGN KEY (OfficeID) REFERENCES doordash_inc(OfficeID) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO doordash_employees ( EmployeeID, EmployeeName, EmployeeAddress, WorkerType, OfficeID)
+VALUES
+(1, 'James Don', '300 Maple', 'Office', 1),
+(2, 'Bob Cho', '400 West', 'Delivery', 2),
+(3, 'Jonathan Turbo', '350 North', 'Office', 3),
+(4, 'Meredith Li', '300 South', 'Delivery', 4),
+(5, 'Jan Smart', '220 University', 'Office', 5),
+(6, 'Luis Smart', '300 Maple', 'Office', 6),
+(7, 'Bobby Charlton', '400 West', 'Delivery', 7),
+(8, 'Karl Mack', '350 North', 'Delivery', 8),
+(9, 'Jim Beam', '300 South', 'Office',  9),
+(10, 'Janet Jackson', '320 University', 'Office', 10);
+
+
+9. CREATE TABLE item
+(
+  ItemID int(11) NOT NULL,
+  TotalItems int(10) DEFAULT NULL,
+  OrderCost int(11) DEFAULT NULL,
+  VendorID int(11) DEFAULT NULL,
+  OrderID int(11) DEFAULT NULL,
+  CONSTRAINT item_pk PRIMARY KEY (ItemID),
+) 
+  ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO item ( ItemID, TotalItems, OrderCost, VendorID, OrderID)
+VALUES
+(1, 10, 74, 1, 01),
+(2, 9, 33, 2, 02),
+(3, 3, 25, 3, 03),
+(4, 15, 87, 4, 04),
+(5, 22, 120, 5, 05),
+(6, 5, 29, 6, 06),
+(7, 17, 104, 7, 07),
+(8, 10, 120, 8, 08),
+(9, 18, 76, 9, 09),
+(10, 11, 83, 10, 010);
+
+
+
+CREATE TABLE vendors 
+(
+  VendorID int(11) NOT NULL,
+  VendorName varchar(30) DEFAULT NULL,
+  VendorStreet varchar(30) DEFAULT NULL,
+  VendorCity varchar(30) DEFAULT NULL,
+  VendorState varchar(30) DEFAULT NULL
+CONSTRAINT vendors_pk PRIMARY KEY (VendorID)
+ ) 
+  ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO vendors (VendorID, VendorName, VendorStreet, VendorCity, VendorState)
+VALUES
+(1,'McDonalds', '1994 Ximeno Avenue', 'LB', 'CA'),
+(2,'KFC', '12101 Seal Boulevard', 'SLC', 'UT'),
+(3,'Hole Mole', '2290 Bellflower Boulevard',  'SLC', 'UT'),
+(4,'Panda Express', '6529 East Spring Street', 'NYC', 'NY'),
+(5,'Little Caesars Pizza', '2201 Palo Verde Avenue', 'LA', 'CA'),
+(6,'Jersey Mikes Subs', '5726 East 7th Street', 'HOU', 'TX'),
+(7,'Chick-fil-A', '4801 2nd Street', 'CHI', 'IL'),
+(8,'Del Taco', '5560 East 7th Street', 'SD','CA'),
+(9,'Popeyes', '3948 East Anaheim Street', 'SF', 'CA'),
+(10,'Chipotle', '1230 College Estate',  'MIA', 'FL');
+
+
+
+
+
+CREATE TABLE orders 
+(
+  OrderID int(11) NOT NULL,
+  OrderDate date DEFAULT NULL,
+  OrderTime time DEFAULT NULL,
+  OrderStatus varchar(30) DEFAULT NULL,
+  OrderItems varchar(30) DEFAULT NULL,
+  CONSTRAINT orders_pk PRIMARY KEY (OrderID)
+) 
+  ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ 
+INSERT INTO orders (OrderID, OrderDate, OrderTime, OrderStatus, OrderItems)
+VALUES
+(1, '2022-12-01', '3:00', 'Dropped at Door', 'Food'),
+(2, '2022-11-01', '2:00', 'Handed to Customer', 'Drinks'),
+(3, '2022-10-01', '1:00', 'Handed to Customer', 'Food'),
+(4, '2022-09-01', '2:00', 'Dropped at Door', 'Drinks'),
+(5, '2022-08-01', '1:00', 'Delivered', 'Food'),
+(6, '2022-07-01', '4:00', 'Handed to Customer ', 'Groceries'),
+(7, '2022-06-01', '2:00', 'Handed to Customer ', 'Groceries'),
+(8, '2022-05-01', '1:00', 'Dropped at Door', 'Food'),
+(9, '2022-04-01', '12:00', 'Dropped at Door', 'Food'),
+(10, '2022-03-01', '2:00', 'Dropped at Door', 'Food');
+
+
+
+
+
+
+
+
+
+Query 1
+
+Present the information for customers who are from UT and whose zip code start with a number '8'
+
+
+SELECT * 
+FROM customer
+WHERE customer.CustomerState = 'UT'
+AND customer.OrderReceived = 'YES';
+
+ 
+
+
+Query 2
+
+Present the unique customer information for all customers who have orders that were delivered with the OrderStatus of 'Handed to Customer'
+
+
+SELECT DISTINCT
+customer.CustomerID, customer.CustomerName, customer.CustomerStreet, customer.CustomerCity ,customer.CustomerState, customer.CustomerZip 
+FROM customer
+INNER JOIN orders ON
+customer.OrderID = orders.OrderID 
+WHERE orders.OrderStatus = 'Handed to Customer';
+
+
+Query 3 
+
+Present the average order cost of items bought by customers for the state of 'CA'
+
+SELECT  AVG(item.OrderCost)
+FROM customer, orders, item
+WHERE customer.OrderID = orders.OrderID
+AND orders.OrderID = item.OrderID 
+AND customer.CustomerState = 'CA';
+
+
+
+Query 4 
+
+Present the unique itemID, order cost and order cost after 10% discount of all items that exist in orders.
+
+
+SELECT DISTINCT item.itemID, item.orderCost, .9*item.orderCost AS '10% Discount'
+FROM item NATURAL JOIN orders
+
+
+
+Query 5
+
+Present the total price of each order
+
+SELECT orders.orderID, SUM(item.totalItems*item.orderCost) AS 'Orders Cost Sum'
+FROM orders, item 
+WHERE orders.orderID = item.orderID 
+GROUP BY orders.orderID
+
+
+
+
+
+
+
+
+
+2 Views and 2 Stored procedures
+
+
+View 1
+CREATE VIEW office_employees AS(
+    SELECT
+        doordash_employees.*
+    FROM
+        doordash_employees
+    WHERE
+        doordash_employees.WorkerType LIKE 'o%'
+);
+
+SELECT * FROM `office_employees`
+
+
+
+
+
+
+
+
+View 2
+CREATE VIEW itemID5_cost65
+AS
+ (SELECT item.*
+  FROM item
+  WHERE item.ItemID > 5
+  AND item.OrderCost > 65
+  );
+
+SELECT * FROM itemID5_cost65
+
+
+Stored Procedure 1
+
+DELIMITER //
+
+CREATE PROCEDURE sp_o_employees ()
+BEGIN
+SELECT doordash_employees.EmployeeName
+FROM doordash_employees
+WHERE doordash_employees.EmployeeName LIKE '%o%';
+END //
+
+DELIMITER ;
+
+
+
+CALL sp_o_employees
+
+Stored Procedure 2
+
+DELIMITER //
+
+CREATE PROCEDURE sp_SLC_and_HoleMole_check ()
+BEGIN
+SELECT vendors.VendorCity, vendors.VendorName
+FROM vendors
+WHERE vendors.VendorCity LIKE '%SLC%' AND vendors.VendorName LIKE '%Hole%';
+END //
+
+DELIMITER ;
+
+CALL sp_SLC_and_HoleMole_check
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--
+-- Database: 'doordash_project'
+–
+
+
+CREATE DATABASE 'doordash_project'; 
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'customer'
+--
+
+
+CREATE TABLE 'customer' (
+ 'CustomerID' int(11) NOT NULL,
+ 'CustomerName' varchar(30) DEFAULT NULL,
+ 'CustomerStreet' varchar(30) DEFAULT NULL,
+ 'CustomerCity' varchar(30) DEFAULT NULL,
+ 'CustomerState' varchar(30) DEFAULT NULL,
+ 'CustomerZip' int(5) DEFAULT NULL,
+ 'PhoneNumber' int(11) DEFAULT NULL,
+ 'TimeDelivered' time DEFAULT NULL,
+ 'CustomerOrderID' int(11) DEFAULT NULL,
+ 'OrderReceived' int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'customer_transaction'
+--
+
+
+CREATE TABLE 'customer_transaction' (
+ 'CustomerOrderID' int(11) NOT NULL,
+ 'Restaurant' varchar(30) DEFAULT NULL,
+ 'Price' int(6) DEFAULT NULL,
+ 'Payment' varchar(4) DEFAULT NULL,
+ 'DeliveryTime' time DEFAULT NULL,
+ 'AppID' int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'delivered_order'
+--
+
+
+CREATE TABLE 'delivered_order' (
+ 'DEmployeeID' int(11) NOT NULL DEFAULT '0',
+ 'OrderID' int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'deliver_worker'
+--
+
+
+CREATE TABLE 'deliver_worker' (
+ 'DEmployeeID' int(11) NOT NULL,
+ 'LicensePlateNumber' varchar(7) NOT NULL DEFAULT '',
+ 'HourlyWage' int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'doordash_app'
+--
+
+
+CREATE TABLE 'doordash_app' (
+ 'AppID' int(11) NOT NULL,
+ 'Search' varchar(30) DEFAULT NULL,
+ 'Orders' varchar(30) DEFAULT NULL,
+ 'Accounts' varchar(30) DEFAULT NULL,
+ 'OEmployeeID' int(11) DEFAULT NULL,
+ 'DEmployeeID' int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'doordash_employees'
+--
+
+
+CREATE TABLE 'doordash_employees' (
+ 'EmployeeID' int(11) NOT NULL,
+ 'EmployeeName' varchar(30) DEFAULT NULL,
+ 'EmployeeStreet' varchar(30) DEFAULT NULL,
+ 'EmployeeCity' varchar(30) DEFAULT NULL,
+ 'EmployeeState' varchar(30) DEFAULT NULL,
+ 'EmployeeZip' int(5) DEFAULT NULL,
+ 'WorkerType' varchar(30) DEFAULT NULL,
+ 'OfficeID' int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'doordash_inc'
+--
+
+
+CREATE TABLE 'doordash_inc' (
+ 'OfficeID' int(11) NOT NULL,
+ 'OfficeStreet' varchar(30) DEFAULT NULL,
+ 'OfficeCity' varchar(30) DEFAULT NULL,
+ 'OfficeState' varchar(50) DEFAULT NULL,
+ 'OfficeZip' varchar(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'doordash_inc_employees'
+--
+
+
+CREATE TABLE 'doordash_inc_employees' (
+ 'OfficeID' int(11) NOT NULL,
+ 'Employees' int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'item'
+--
+
+
+CREATE TABLE 'item' (
+ 'ItemID' int(11) NOT NULL,
+ 'TotalItems' int(10) DEFAULT NULL,
+ 'OrderCost' int(11) DEFAULT NULL,
+ 'VendorID' int(11) DEFAULT NULL,
+ 'OrderID' int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'office_worker'
+--
+
+
+CREATE TABLE 'office_worker' (
+ 'OEmployeeID' int(11) NOT NULL,
+ 'AnnualSalary' int(11) NOT NULL DEFAULT '0',
+ 'StockOption' varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'orders'
+--
+
+
+CREATE TABLE 'orders' (
+ 'OrderID' int(11) NOT NULL,
+ 'OrderDate' date DEFAULT NULL,
+ 'OrderTime' time DEFAULT NULL,
+ 'OrderStatus' varchar(30) DEFAULT NULL,
+ 'OrderItems' int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'order_feedback'
+--
+
+
+CREATE TABLE 'order_feedback' (
+ 'SurveyID' int(11) NOT NULL,
+ 'Score' int(10) DEFAULT NULL,
+ 'AdditionalRemarks' varchar(500) DEFAULT NULL,
+ 'DateRecorded' date DEFAULT NULL,
+ 'AppID' int(11) DEFAULT NULL,
+ 'CustomerID' int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table 'vendors'
+--
+
+
+CREATE TABLE 'vendors' (
+ 'VendorID' int(11) NOT NULL,
+ 'VendorName' varchar(30) DEFAULT NULL,
+ 'VendorStreet' varchar(30) DEFAULT NULL,
+ 'VendorCity' varchar(30) DEFAULT NULL,
+ 'VendorState' varchar(30) DEFAULT NULL,
+ 'VendorZip' int(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Indexes for dumped tables
+--
+
+
+--
+-- Indexes for table 'customer'
+--
+ALTER TABLE customer
+ ADD KEY customer_fk (CustomerOrderID),
+ ADD KEY customer_fk1 (OrderID);
+--
+-- Indexes for table 'customer_transaction'
+--
+ALTER TABLE 'customer_transaction'
+ ADD PRIMARY KEY ('CustomerOrderID'),
+ ADD KEY 'customer_transaction_fk' ('AppID');
+
+
+--
+-- Indexes for table 'delivered_order'
+--
+ALTER TABLE 'delivered_order'
+ ADD PRIMARY KEY ('DEmployeeID','OrderID'),
+ ADD KEY 'delivered_order_fk1' ('OrderID');
+
+
+--
+-- Indexes for table 'deliver_worker'
+--
+ALTER TABLE 'deliver_worker'
+ ADD PRIMARY KEY ('DEmployeeID','LicensePlateNumber');
+
+
+--
+-- Indexes for table 'doordash_app'
+--
+ALTER TABLE 'doordash_app'
+ ADD PRIMARY KEY ('AppID'),
+ ADD KEY 'doordash_app_fk' ('OEmployeeID'),
+ ADD KEY 'doordash_app_fk1' ('DEmployeeID');
+
+
+--
+-- Indexes for table 'doordash_employees'
+--
+ALTER TABLE 'doordash_employees'
+ ADD PRIMARY KEY ('EmployeeID'),
+ ADD KEY 'employees_fk' ('OfficeID');
+
+
+--
+-- Indexes for table 'doordash_inc'
+--
+ALTER TABLE 'doordash_inc'
+ ADD PRIMARY KEY ('OfficeID');
+
+
+--
+-- Indexes for table 'doordash_inc_employees'
+--
+ALTER TABLE 'doordash_inc_employees'
+ ADD KEY 'doordash_inc_employees_fk' ('OfficeID');
+
+
+--
+-- Indexes for table 'item'
+--
+ALTER TABLE 'item'
+ ADD PRIMARY KEY ('ItemID'),
+ ADD KEY 'item_fk' ('VendorID'),
+ ADD KEY 'item_fk1' ('OrderID');
+
+
+--
+-- Indexes for table 'office_worker'
+--
+ALTER TABLE 'office_worker'
+ ADD PRIMARY KEY ('OEmployeeID','AnnualSalary');
+
+
+--
+-- Indexes for table 'orders'
+--
+ALTER TABLE 'orders'
+ ADD PRIMARY KEY ('OrderID');
+
+
+--
+-- Indexes for table 'order_feedback'
+--
+ALTER TABLE 'order_feedback'
+ ADD PRIMARY KEY ('SurveyID'),
+ ADD KEY 'order_feedback_fk' ('AppID'),
+ ADD KEY 'order_feedback_fk1' ('CustomerID');
+
+
+--
+-- Indexes for table 'vendors'
+--
+ALTER TABLE 'vendors'
+ ADD PRIMARY KEY ('VendorID');
+
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+
+--
+-- AUTO_INCREMENT for table 'customer'
+--
+ALTER TABLE 'customer'
+ MODIFY 'CustomerID' int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table 'customer_transaction'
+--
+ALTER TABLE 'customer_transaction'
+ MODIFY 'CustomerOrderID' int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table 'doordash_app'
+--
+ALTER TABLE 'doordash_app'
+ MODIFY 'AppID' int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table 'doordash_employees'
+--
+ALTER TABLE 'doordash_employees'
+ MODIFY 'EmployeeID' int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table 'doordash_inc'
+--
+ALTER TABLE 'doordash_inc'
+ MODIFY 'OfficeID' int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table 'item'
+--
+ALTER TABLE 'item'
+ MODIFY 'ItemID' int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table 'orders'
+--
+ALTER TABLE 'orders'
+ MODIFY 'OrderID' int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table 'order_feedback'
+--
+ALTER TABLE 'order_feedback'
+ MODIFY 'SurveyID' int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table 'vendors'
+--
+ALTER TABLE 'vendors'
+ MODIFY 'VendorID' int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+
+--
+-- Constraints for table 'customer'
+--
+ALTER TABLE 'customer'
+ ADD CONSTRAINT 'customer_fk' FOREIGN KEY ('CustomerOrderID') REFERENCES 'customer_transaction' ('CustomerOrderID') ON UPDATE CASCADE,
+ ADD CONSTRAINT 'customer_fk1' FOREIGN KEY ('OrderReceived') REFERENCES 'orders' ('OrderID') ON UPDATE CASCADE;
+
+
+--
+-- Constraints for table 'customer_transaction'
+--
+ALTER TABLE 'customer_transaction'
+ ADD CONSTRAINT 'customer_transaction_fk' FOREIGN KEY ('AppID') REFERENCES 'doordash_app' ('AppID');
+
+
+--
+-- Constraints for table 'delivered_order'
+--
+ALTER TABLE 'delivered_order'
+ ADD CONSTRAINT 'delivered_order_fk' FOREIGN KEY ('DEmployeeID') REFERENCES 'deliver_worker' ('DEmployeeID'),
+ ADD CONSTRAINT 'delivered_order_fk1' FOREIGN KEY ('OrderID') REFERENCES 'orders' ('OrderID');
+
+
+--
+-- Constraints for table 'deliver_worker'
+--
+ALTER TABLE 'deliver_worker'
+ ADD CONSTRAINT 'delivery_Worker_fk' FOREIGN KEY ('DEmployeeID') REFERENCES 'doordash_employees' ('EmployeeID');
+
+
+--
+-- Constraints for table 'doordash_app'
+--
+ALTER TABLE 'doordash_app'
+ ADD CONSTRAINT 'doordash_app_fk' FOREIGN KEY ('OEmployeeID') REFERENCES 'doordash_employees' ('EmployeeID') ON UPDATE CASCADE,
+ ADD CONSTRAINT 'doordash_app_fk1' FOREIGN KEY ('DEmployeeID') REFERENCES 'doordash_employees' ('EmployeeID') ON UPDATE CASCADE;
+
+
+--
+-- Constraints for table 'doordash_employees'
+--
+ALTER TABLE 'doordash_employees'
+ ADD CONSTRAINT 'employees_fk' FOREIGN KEY ('OfficeID') REFERENCES 'doordash_inc' ('OfficeID') ON UPDATE CASCADE;
+
+
+--
+-- Constraints for table 'doordash_inc_employees'
+--
+ALTER TABLE 'doordash_inc_employees'
+ ADD CONSTRAINT 'doordash_inc_employees_fk' FOREIGN KEY ('OfficeID') REFERENCES 'doordash_inc' ('OfficeID') ON UPDATE CASCADE;
+
+
+--
+-- Constraints for table 'item'
+--
+ALTER TABLE 'item'
+ ADD CONSTRAINT 'item_fk' FOREIGN KEY ('VendorID') REFERENCES 'vendors' ('VendorID') ON UPDATE CASCADE,
+ ADD CONSTRAINT 'item_fk1' FOREIGN KEY ('OrderID') REFERENCES 'orders' ('OrderID') ON UPDATE CASCADE;
+
+
+--
+-- Constraints for table 'office_worker'
+--
+ALTER TABLE 'office_worker'
+ ADD CONSTRAINT 'office_worker_fk' FOREIGN KEY ('OEmployeeID') REFERENCES 'doordash_employees' ('EmployeeID');
+
+
+--
+-- Constraints for table 'order_feedback'
+--
+ALTER TABLE 'order_feedback'
+ ADD CONSTRAINT 'order_feedback_fk' FOREIGN KEY ('AppID') REFERENCES 'doordash_app' ('AppID') ON UPDATE CASCADE,
+ ADD CONSTRAINT 'order_feedback_fk1' FOREIGN KEY ('CustomerID') REFERENCES 'customer' ('CustomerID') ON UPDATE CASCADE;
+COMMIT;
+
+
+
+
